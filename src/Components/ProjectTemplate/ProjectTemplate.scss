@@ -1,0 +1,101 @@
+.pj-template-container{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 80px;
+    img{
+        width: 550px;
+        background: radial-gradient(circle at 100% 100%, #ffffff 0, #ffffff 3px, transparent 3px) 0% 0%/8px 8px no-repeat,
+            radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px) 100% 0%/8px 8px no-repeat,
+            radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px) 0% 100%/8px 8px no-repeat,
+            radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px) 100% 100%/8px 8px no-repeat,
+            linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 10px) calc(100% - 16px) no-repeat,
+            linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 16px) calc(100% - 10px) no-repeat,
+            linear-gradient(120deg, #54a4d7 25%, #4827cc 100%);
+        border-radius: 8px;
+        padding: 4px;
+        box-sizing: border-box;
+        box-shadow: 2px solid #3683a1;
+        margin-left: 80px;
+    }
+    &.reversed{
+        flex-direction: row-reverse;
+        img{
+            margin-left: 0;
+            margin-right: 80px;
+        
+        }
+    }
+    
+}
+        
+.pj-template-description{
+    width: 560px;
+    color: white;
+    h2:first-child{
+        color: #3683a1;
+        margin-bottom: 0px;
+    }
+    :nth-child(2){
+        margin: 10px 0px;
+    }
+    a{
+        color: rgb(193, 193, 193);
+        display: flex;
+        &:hover{
+            color: rgb(193, 193, 193);
+        }
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .pj-template-container{
+        flex-direction: column;
+        align-items: center;
+        img{
+            margin: 0;
+            margin-top: 40px;
+            width: 560px;
+        }
+        &.reversed{
+            flex-direction: column;
+            img{
+                width: 560px;
+                margin: 0;
+                margin-top: 40px;
+            }
+        }
+    }
+    
+}
+@media screen and (max-width:600px) {
+    .pj-template-container{
+       
+        img{
+            width: 380px;
+        }
+        &.reversed{
+            img{
+                width: 380px;
+            }
+        }
+    }
+    .pj-template-description{
+        width: 380px;
+    }
+}
+@media screen and (max-width:400px) {
+    .pj-template-container{
+       
+        img{
+            width: 280px;
+        }
+        &.reversed{
+            img{
+                width: 280px;
+            }
+        }
+    }
+    .pj-template-description{
+        width: 280px;
+    }
+}

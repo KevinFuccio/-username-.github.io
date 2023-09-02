@@ -1,0 +1,65 @@
+header{
+    margin-top: 80px;
+    width: 60%;
+    h2{
+        font-size: 90px;
+        margin: 0px;
+        line-height: 78px;
+        span{
+            color: #54a4d7;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+    }
+    span{
+        line-height: 30px;
+        color: #8a8fa5;
+        font-size: 60px;
+        font-weight: 600;
+        font-family: "Roboto", sans-serif;
+    }
+    div{
+        height: 40px;
+        margin-top: 30px;
+        .gradient-btn{
+            padding: 15px 50px 15px 50px;
+            font-size: large;
+            border: none;
+            &:focus{
+                outline: none;
+            }
+        }
+        .gradient-btn:hover{
+            cursor: pointer;
+            transition: 0.2s;
+            scale: 1.05
+        }
+    }
+    
+}
+
+
+
+@media screen and (max-width:790px) {
+    header{
+        width: 80%;
+        h2{
+            font-size: 72px;
+            line-height: 78px;  
+        }
+        span{
+          font-size: 60px;   
+        }
+    }
+}
+@media screen and (max-width:415px) {
+    header{
+        width: 80%;
+        h2{
+            font-size: 52px;
+            line-height: 58px;  
+        }
+        span{
+          font-size: 50px;   
+        }
+    }
+}
