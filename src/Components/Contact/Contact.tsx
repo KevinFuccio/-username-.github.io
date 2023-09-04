@@ -2,10 +2,12 @@ import "./Contact.scss";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import { Footer } from "../Footer/Footer";
-import { useRef, useState } from "react";
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHubIcon from '@mui/icons-material/GitHub';
+import { SyntheticEvent, useRef, useState } from "react";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import emailjs from "@emailjs/browser";
+import { EMAIL_REGEX } from "../../utils";
+import { Alert, Snackbar } from "@mui/material";
 
 export const Contact = () => {
   const form: any = useRef();
@@ -14,6 +16,7 @@ export const Contact = () => {
     email: "",
     message: "",
   });
+  const [alert, setAlert] = useState(false);
   const handleChange = (e: any) => {
     setContactForm({
       ...contactForm,
@@ -23,24 +26,44 @@ export const Contact = () => {
 
   const sendEmail = (e: any) => {
     e.preventDefault();
-    if(contactForm.name && contactForm.email){
-      emailjs.send(
-        "service_8sfbtkb",
-        "template_rb6y1hv",
-        {
-          from_name: contactForm.name,
-          from_email: contactForm.email,
-          message: contactForm.message
-        },
-        "XtXQQM6jX29rmmAYA"
-      );
-    }else{
-      console.log('campi vuoti');
-      
+    const validation = EMAIL_REGEX.test(contactForm.email);
+    if (contactForm.name && validation) {
+      emailjs
+        .send(
+          "service_8sfbtkb",
+          "template_rb6y1hv",
+          {
+            from_name: contactForm.name,
+            from_email: contactForm.email,
+            message: contactForm.message,
+          },
+          "XtXQQM6jX29rmmAYA"
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            setAlert(true);
+          }
+        });
+      setContactForm({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } else {
+      console.log("campi vuoti");
     }
-
-    
   };
+
+  const handleClose = (
+    _event?: SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setAlert(false);
+  };
+
   return (
     <div className="contact-container" id="contact">
       <div className="contact-circles">
@@ -54,9 +77,7 @@ export const Contact = () => {
       <div className="msg-form-container">
         <div className="contact-msg">
           <h3>Drop a message</h3>
-          <span>
-            
-          </span>
+          <span></span>
           <div style={{ marginTop: "20px" }}>
             <div className="contact-msg-icons">
               <div>
@@ -72,17 +93,23 @@ export const Contact = () => {
             </div>
             <div className="contact-msg-icons">
               <div>
-              <a target="_blank" href="https://www.linkedin.com/in/kevin-fuccio-28bb07267/"><LinkedInIcon/></a>
+                <a
+                  target="_blank"
+                  href="https://www.linkedin.com/in/kevin-fuccio-28bb07267/"
+                >
+                  <LinkedInIcon />
+                </a>
               </div>
               <span>My LinkedIn</span>
             </div>
             <div className="contact-msg-icons">
               <div>
-              <a target="_blank" href="https://github.com/KevinFuccio"><GitHubIcon/></a>
+                <a target="_blank" href="https://github.com/KevinFuccio">
+                  <GitHubIcon />
+                </a>
               </div>
               <span>My GitHub</span>
             </div>
-            
           </div>
         </div>
 
@@ -100,7 +127,6 @@ export const Contact = () => {
               required
               value={contactForm.name}
               onChange={(e) => handleChange(e)}
-              
             />
             <label>Email</label>
             <input
@@ -109,7 +135,6 @@ export const Contact = () => {
               required
               value={contactForm.email}
               onChange={(e) => handleChange(e)}
-             
             />
             <label>Message</label>
             <textarea
@@ -123,6 +148,17 @@ export const Contact = () => {
       </div>
       <hr />
       <Footer />
+      {alert && (
+        <Snackbar open={alert} autoHideDuration={3000} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Email sent successfully!
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   );
 };
